@@ -449,8 +449,20 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  const newArr = arr.sort((a, b) => {
+    if (a.country < b.country) {
+      return -1;
+    }
+    if (a.country > b.country) {
+      return 1;
+    }
+    if (a.country === b.country && a.city > b.city) {
+      return 2;
+    }
+    return -2;
+  });
+  return newArr;
 }
 
 /**
@@ -471,8 +483,15 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const arr = Array(n).fill(0).map((value) => Array(n).fill(value));
+  const newArr = arr.map((value, index) => value.map((val, i) => {
+    if (index === i) {
+      return val + 1;
+    }
+    return val;
+  }));
+  return newArr;
 }
 
 /**
@@ -488,8 +507,8 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  return Array(end - start + 1).fill(start).map((value, index) => value + index);
 }
 
 /**
@@ -503,8 +522,8 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  return arr.sort((a, b) => a - b).filter((value, index, array) => value !== array[index - 1]);
 }
 
 /**
@@ -595,8 +614,15 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  if (arr.length % 2 === 0) {
+    const arr1 = arr.slice(0, arr.length / 2);
+    const arr2 = arr.slice(arr.length / 2);
+    return [].concat(arr2, arr1);
+  }
+  const arr1 = arr.slice(0, Math.floor(arr.length / 2));
+  const arr2 = arr.slice(Math.ceil(arr.length / 2));
+  return [].concat(arr2, arr[Math.floor(arr.length / 2)], arr1);
 }
 
 
