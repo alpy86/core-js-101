@@ -202,8 +202,34 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let rect = '';
+  for (let i = 0; i < height; i += 1) {
+    if (i === 0) {
+      rect += '┌';
+    } else if (i === height - 1) {
+      rect += '└';
+    } else {
+      rect += '│';
+    }
+
+    for (let j = 1; j < width - 1; j += 1) {
+      if (i === 0 || i === height - 1) {
+        rect += '─';
+      } else {
+        rect += ' ';
+      }
+    }
+    if (i === 0) {
+      rect += '┐';
+    } else if (i === height - 1) {
+      rect += '┘';
+    } else {
+      rect += '│';
+    }
+    rect += '\n';
+  }
+  return rect;
 }
 
 
@@ -223,8 +249,18 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const latinAlf = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const latin = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  const arr = [];
+  for (let i = 0; i < str.length; i += 1) {
+    if (latinAlf.indexOf(str[i]) >= 0) {
+      arr.push(latin[latinAlf.indexOf(str[i])]);
+    } else {
+      arr.push(str[i]);
+    }
+  }
+  return arr.join('');
 }
 
 /**
@@ -240,8 +276,8 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return value instanceof String || typeof value === 'string';
 }
 
 
@@ -269,8 +305,12 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const arrCard = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣',
+    'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦',
+    'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥',
+    'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  return arrCard.indexOf(value);
 }
 
 
